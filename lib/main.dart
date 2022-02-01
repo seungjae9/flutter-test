@@ -13,14 +13,15 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
             appBar: AppBar(),
             bottomNavigationBar: MyBottomAppBar(),
-            body: ListView(
-              children: [
-                ListTile(
+            body: ListView.builder(
+              itemCount: 20,
+              itemBuilder: (context, item) {
+                return ListTile(
                   leading: Image.network(
                       'https://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/256/Twitter-1-icon.png'),
                   title: Text('홍길동'),
-                ),
-              ],
+                );
+              },
             )));
   }
 }
