@@ -15,41 +15,10 @@ class MyApp extends StatelessWidget {
             bottomNavigationBar: MyBottomAppBar(),
             body: ListView(
               children: [
-                Container(
-                  child: Row(
-                    children: [
-                      Image.network(
-                        'https://png.clipart.me/istock/previews/9349/93493545-people-icon.jpg',
-                        height: 20,
-                      ),
-                      SizedBox(width: 5),
-                      Text('홍길동'),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Row(
-                    children: [
-                      Image.network(
-                        'https://png.clipart.me/istock/previews/9349/93493545-people-icon.jpg',
-                        height: 20,
-                      ),
-                      SizedBox(width: 5),
-                      Text('홍길동'),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Row(
-                    children: [
-                      Image.network(
-                        'https://png.clipart.me/istock/previews/9349/93493545-people-icon.jpg',
-                        height: 20,
-                      ),
-                      SizedBox(width: 5),
-                      Text('홍길동'),
-                    ],
-                  ),
+                ListTile(
+                  leading: Image.network(
+                      'https://icons.iconarchive.com/icons/custom-icon-design/flatastic-11/256/Twitter-1-icon.png'),
+                  title: Text('홍길동'),
                 ),
               ],
             )));
