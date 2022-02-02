@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// 부모 -> 자식 state 전송 방법
-/// 1. 보내고
-///   - 보내려면 자식위젯 (작명: 보낼 state)
-/// 2. 등록하고
-///  - 부모가 보낸 state 는 read-only 가 제일 좋기 떄문에 final로 등록해주기(자식에서)
-/// 3. 씁니다
-
 void main() {
   runApp(MaterialApp(home: MyApp()));
 }
@@ -19,8 +12,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var a = 3;
+  var total = 3;
   var name = ['김영숙', '홍길동', '박승재'];
+
+  addOne() {
+    setState(() {
+      total++;
+    });
+  }
 
   @override
   build(context) {
@@ -31,11 +30,13 @@ class _MyAppState extends State<MyApp> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) {
-                  return DialogUI(state: a);
+                  return DialogUI(addOne: addOne);
                 });
           },
         ),
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(total.toString()),
+        ),
         body: ListView.builder(
           itemCount: 3,
           itemBuilder: (context, item) {
@@ -50,8 +51,10 @@ class _MyAppState extends State<MyApp> {
 }
 
 class DialogUI extends StatelessWidget {
-  const DialogUI({Key? key, this.state}) : super(key: key);
-  final state;
+  const DialogUI({Key? key, this.addOne}) : super(key: key);
+  final addOne;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +65,11 @@ class DialogUI extends StatelessWidget {
         child: Column(
           children: [
             TextField(),
-            TextButton(onPressed: () {}, child: Text(state.toString())),
+            TextButton(
+                onPressed: () {
+                  addOne();
+                },
+                child: Text('확인')),
             TextButton(
                 onPressed: () {
                   Navigator.pop(context);
