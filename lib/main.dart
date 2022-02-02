@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// context 란?(the build location of the current widget) - 부모위젯의 정보를 담고있는 변수
-/// 커스텀위젯을 만들때마다 하나씩 생긴다. (쉽게 비유해서 부모들만 나온 족보)
-/// Builder -> 족보 생성기
-/// 해당하는 부모 context가 없을때 context 에러가 생긴다 이때, 부모를 만들어 주거나 / builder 로 족보를 만들어준다.
-
 void main() {
   runApp(MyApp());
 }
@@ -17,35 +12,67 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  var a = 1;
   var name = ['김영숙', '홍길동', '박승재'];
+  var like = [0, 0, 0];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-            floatingActionButton: Builder(
-              builder: (context) {
-                return FloatingActionButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Dialog(child: Text('안녕'));
-                        });
-                  },
-                );
-              }
-            ),
             appBar: AppBar(),
+            bottomNavigationBar: MyBottomAppBar(),
             body: ListView.builder(
               itemCount: 3,
               itemBuilder: (context, item) {
                 return ListTile(
-                  leading: Image.network(
-                      'https://icons.iconarchive.com/icons/papirus-team/papirus-apps/256/twitter-icon.png'),
+                  leading: Text(like[item].toString()),
                   title: Text(name[item]),
+                  trailing: TextButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          like[item]++;
+                        });
+                      },
+                      icon: Icon(Icons.plus_one),
+                      label: Text('좋아요')),
                 );
               },
             )));
+  }
+}
+
+class MyBottomAppBar extends StatelessWidget {
+  const MyBottomAppBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+        child: Container(
+      height: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            icon: Icon(Icons.phone),
+            onPressed: () {
+              print('call');
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.message),
+            onPressed: () {
+              print('message');
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.book),
+            onPressed: () {
+              print('phone_book');
+            },
+          ),
+        ],
+      ),
+    ));
   }
 }
