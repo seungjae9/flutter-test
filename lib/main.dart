@@ -21,6 +21,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  addName(input) {
+    setState(() {
+      name.add(input.toString());
+    });
+  }
+
   @override
   build(context) {
     return Scaffold(
@@ -30,7 +36,7 @@ class _MyAppState extends State<MyApp> {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) {
-                  return DialogUI(addOne: addOne);
+                  return DialogUI(addOne: addOne, addName: addName);
                 });
           },
         ),
@@ -38,7 +44,7 @@ class _MyAppState extends State<MyApp> {
           title: Text(total.toString()),
         ),
         body: ListView.builder(
-          itemCount: 3,
+          itemCount: name.length,
           itemBuilder: (context, item) {
             return ListTile(
               leading: Image.network(
@@ -51,10 +57,10 @@ class _MyAppState extends State<MyApp> {
 }
 
 class DialogUI extends StatelessWidget {
-  DialogUI({Key? key, this.addOne}) : super(key: key);
+  DialogUI({Key? key, this.addOne, this.addName}) : super(key: key);
   final addOne;
+  final addName;
   var inputData = TextEditingController();
-  var inputData2 = '';
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +71,9 @@ class DialogUI extends StatelessWidget {
         child: Column(
           children: [
             TextField(controller: inputData),
-            TextField(onChanged: (text) {
-              inputData2 = text;
-            }),
             TextButton(
                 onPressed: () {
-                  addOne();
+                  addName(inputData.text);
                 },
                 child: Text('확인')),
             TextButton(
