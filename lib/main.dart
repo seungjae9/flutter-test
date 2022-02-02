@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+///응용사항
+/// - 완료버튼 눌러도 Dialog 닫히게 만들려면?
+/// - 빈칸으로 완료버튼 누르면 추가안되게?
+/// - 이름옆에 삭제버튼과 기능?
+/// - 이름들 가나다순 정렬버튼? (sort함수 사용법을 찾아봅시다)
+/// - 전화번호 데이터도 3개 마련해놓고 전화번호도 보여주고 싶으면?
+
+
 void main() {
   runApp(MaterialApp(home: MyApp()));
 }
@@ -73,6 +81,7 @@ class DialogUI extends StatelessWidget {
             TextField(controller: inputData),
             TextButton(
                 onPressed: () {
+                  addOne();
                   addName(inputData.text);
                 },
                 child: Text('확인')),
